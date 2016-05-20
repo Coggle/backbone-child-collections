@@ -1,0 +1,19 @@
+{
+  "name": "backbone-child-collections",
+  "version": "0.0.1",
+  "description": "Plugin to allow tracking of child collections on models, and recursive fetching of model/collection trees",
+  "main": "backbone.childCollections.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Coggle/backbone-child-collections.git"
+  },
+  "author": "Andy Pritchard",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Coggle/backbone-child-collections/issues"
+  },
+  "homepage": "https://github.com/Coggle/backbone-child-collections#readme"
+}
