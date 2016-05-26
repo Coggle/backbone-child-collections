@@ -15,5 +15,8 @@
   "bugs": {
     "url": "https://github.com/Coggle/backbone-child-collections/issues"
   },
-  "homepage": "https://github.com/Coggle/backbone-child-collections#readme"
+  "homepage": "https://github.com/Coggle/backbone-child-collections#readme",
+  "dependencies": {
+    "async": "^1.5.2"
+  }
 }
