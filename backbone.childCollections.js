@@ -1,3 +1,5 @@
+var async = require('async');
+
 module.exports = function(Backbone) {
 
     Backbone.Model.prototype.addChildCollection = function(collection) {
@@ -6,21 +8,29 @@ module.exports = function(Backbone) {
         this._child_collections.add(collection);
     };
 
-    Backbone.Model.prototype.recursiveFetch = function() {
-        if (!this._child_collections) return;
-        this._child_collections.forEach(function(collection){
-            collection.recursiveFetch();
-        });
+    Backbone.Model.prototype.visitDepthFirst = function(visitor, done) {
+        if (!this._child_collections) return done();
+        async.each(Array.from(this._child_collections), function(collection, callback){
+            collection.visitDepthFirst(visitor, callback);
+        }, done);
     };
 
-    Backbone.Collection.prototype.recursiveFetch = function() {
-        this.fetch({
-            success: function() {
-                this.each(function(m) {
-                    m.recursiveFetch();
-                });
-            }.bind(this)
-        });
+    Backbone.Collection.prototype.visitDepthFirst = function(visitor, done) {
+        visitor(this, function(err){
+            if (err) return done(err);
+            async.each(this, function(model, callback){
+                model.visitDepthFirst(visitor, callback);
+            }, done);
+        }.bind(this));
     };
 
+    Backbone.Model.prototype.recursiveFetch =
+    Backbone.Collection.prototype.recursiveFetch = function(done) {
+        this.visitDepthFirst(function(collection, callback){
+            collection.fetch({
+                success: function() { callback(); },
+                error: function() { callback(new Error('fetch failed')); }
+            });
+        }, done);
+    };
 };
