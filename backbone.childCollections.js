@@ -18,7 +18,7 @@ module.exports = function(Backbone) {
     Backbone.Collection.prototype.visitDepthFirst = function(visitor, done) {
         visitor(this, function(err){
             if (err) return done(err);
-            async.each(this, function(model, callback){
+            async.each(this.models, function(model, callback){
                 model.visitDepthFirst(visitor, callback);
             }, done);
         }.bind(this));
