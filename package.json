@@ -1,6 +1,6 @@
 {
   "name": "backbone-child-collections",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "Plugin to allow tracking of child collections on models, and recursive fetching of model/collection trees",
   "main": "backbone.childCollections.js",
   "scripts": {
